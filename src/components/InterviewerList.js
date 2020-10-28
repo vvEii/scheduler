@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import InterviewerListItem from './InterviewerListItem';
+import 'components/InterviewerList.scss'
 
 const InterviewerList = (props) => {
   return (
