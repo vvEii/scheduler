@@ -14,6 +14,7 @@ const InterviewerList = (props) => {
           avatar = {interviewer.avatar}
           selected = {interviewer.name === props.name}
           setInterviewer = {props.setInterviewer}
+          key = {props.interviewer}
           />
         ))}
       </ul>
