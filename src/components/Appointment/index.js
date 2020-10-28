@@ -1,5 +1,5 @@
 import React from 'react';
-import 'index.scss';
+import 'components/Appointment/style.scss';
 
 const Appointment = () => {
   return <article className='appointment'></article>;
