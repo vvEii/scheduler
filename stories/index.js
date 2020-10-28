@@ -10,6 +10,7 @@ import DayListItem from 'components/DayListItem';
 import DayList from 'components/DayList';
 import InterviewerListItem from 'components/InterviewerListItem';
 import InterviewerList from 'components/InterviewerList';
+import Appointment from 'components/Appointment/index';
 
 storiesOf('Button', module)
   .addParameters({
@@ -92,12 +93,12 @@ storiesOf('InterviewerListItem', module)
       selected
     />
   ))
-  .add("Clickable", () => (
+  .add('Clickable', () => (
     <InterviewerListItem
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
-      setInterviewer={event => action("setInterviewer")(interviewer.id)}
+      setInterviewer={(event) => action('setInterviewer')(interviewer.id)}
     />
   ));
 
@@ -126,3 +127,10 @@ storiesOf('InterviewerList', module)
       setInterviewer={action('setInterviewer')}
     />
   ));
+
+storiesOf('Appointment', module)
+  .addParameters({
+    backgrounds: [{ name: 'white', value: '#fff', default: true }],
+  })
+  .add('Appointment', () => <Appointment />)
+  .add('Appointment with time', () => <Appointment time='12pm' />);
