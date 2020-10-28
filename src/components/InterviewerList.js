@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import InterviewerListItem from './InterviewerListItem';
 import 'components/InterviewerList.scss'
 
@@ -12,9 +11,9 @@ const InterviewerList = (props) => {
           <InterviewerListItem 
           name = {interviewer.name}
           avatar = {interviewer.avatar}
-          selected = {interviewer.name === props.name}
-          setInterviewer = {props.setInterviewer}
-          key = {props.interviewer}
+          selected = {interviewer.id === props.interviewer}
+          setInterviewer = {event => props.setInterviewer(interviewer.id)}
+          key = {interviewer.id}
           />
         ))}
       </ul>
