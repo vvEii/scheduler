@@ -15,5 +15,3 @@ export function getAppointmentsForDay(state, day) {
 
   return appointments;
 }
-
-//export default {getAppointmentsForDay};
