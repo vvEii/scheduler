@@ -17,22 +17,6 @@ export function getAppointmentsForDay(state, day) {
   return appointments;
 }
 
-// 1: { id: 1, time: '12pm', interview: null }
-
-// //  1: {
-//   id: 1,
-//   name: 'Sylvia Palmer',
-//   avatar: 'https://i.imgur.com/LpaY82x.png',
-// }
-
-// "interviewer": {
-//   "id": 1,
-//   "name": "Sylvia Palmer",
-//   "avatar": "https://i.imgur.com/LpaY82x.png"
-// }
-
-//interview is null or id
-//state.interviewers
 export function getInterview(state, interview) {
   if (interview) {
     const interviewer = state.interviewers[interview.interviewer];
