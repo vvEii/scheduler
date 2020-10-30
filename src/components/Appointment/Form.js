@@ -16,6 +16,10 @@ const Form = (props) => {
     props.onCancel();
   };
 
+  const save = () => {
+    props.onSave(name, interviewer);
+  };
+
   return (
     <main className='appointment__card appointment__card--create'>
       <section className='appointment__card-left'>
@@ -24,7 +28,7 @@ const Form = (props) => {
             className='appointment__create-input text--semi-bold'
             name='name'
             type='text'
-            placeholder="Enter your name"
+            placeholder='Enter your name'
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
@@ -40,7 +44,7 @@ const Form = (props) => {
           <Button onClick={cancel} danger>
             Cancel
           </Button>
-          <Button confirm onClick={props.onSave}>
+          <Button confirm onClick={save}>
             Save
           </Button>
         </section>

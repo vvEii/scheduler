@@ -4,7 +4,11 @@ import 'components/Application.scss';
 import DayList from './DayList';
 import Appointment from './Appointment/index.js';
 import axios from 'axios';
-import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors';
+import {
+  getAppointmentsForDay,
+  getInterview,
+  getInterviewersForDay,
+} from '../helpers/selectors';
 
 export default function Application(props) {
   const GET_DAYS = 'http://localhost:8001/api/days';
@@ -46,8 +50,23 @@ export default function Application(props) {
   }, []);
 
   dailyAppointments = getAppointmentsForDay(state, state.day);
-  dailyInterviewers = getInterviewersForDay(state,state.day);
-  
+  dailyInterviewers = getInterviewersForDay(state, state.day);
+
+  const bookInterview = (id, interview) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    return axios
+      .put(`/api/appointments/${id}`, appointment)
+      .then((res) => setState({ ...state, appointments }))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <main className='layout'>
       <section className='sidebar'>
@@ -76,6 +95,7 @@ export default function Application(props) {
               time={appointment.time}
               interview={interview}
               interviewers={dailyInterviewers}
+              bookInterview={bookInterview}
             />
           );
         })}
