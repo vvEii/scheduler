@@ -44,9 +44,10 @@ export default function Application(props) {
       })
       .catch((err) => console.log(err));
   }, []);
-  console.log(state.days);
+
   dailyAppointments = getAppointmentsForDay(state, state.day);
   dailyInterviewers = getInterviewersForDay(state,state.day);
+  
   return (
     <main className='layout'>
       <section className='sidebar'>
