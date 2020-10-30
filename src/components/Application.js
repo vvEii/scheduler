@@ -4,7 +4,7 @@ import 'components/Application.scss';
 import DayList from './DayList';
 import Appointment from './Appointment/index.js';
 import axios from 'axios';
-import { getAppointmentsForDay, getInterview } from '../helpers/selectors';
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from '../helpers/selectors';
 
 export default function Application(props) {
   const GET_DAYS = 'http://localhost:8001/api/days';
@@ -19,6 +19,7 @@ export default function Application(props) {
   });
 
   let dailyAppointments = [];
+  let dailyInterviewers = [];
 
   const setDay = (day) => {
     setState({ ...state, day });
@@ -43,9 +44,9 @@ export default function Application(props) {
       })
       .catch((err) => console.log(err));
   }, []);
-
+  console.log(state.days);
   dailyAppointments = getAppointmentsForDay(state, state.day);
-
+  dailyInterviewers = getInterviewersForDay(state,state.day);
   return (
     <main className='layout'>
       <section className='sidebar'>
@@ -73,6 +74,7 @@ export default function Application(props) {
               id={appointment.id}
               time={appointment.time}
               interview={interview}
+              interviewers={dailyInterviewers}
             />
           );
         })}
