@@ -11,7 +11,7 @@ import {
 } from '../helpers/selectors';
 
 export default function Application(props) {
-  const GET_DAYS = 'http://localhost:8000/api/days';
+  const GET_DAYS = 'http://localhost:8001/api/days';
   const GET_APPOINTMENTS = 'http://localhost:8001/api/appointments';
   const GET_INTERVIEWERS = ' http://localhost:8001/api/interviewers';
 

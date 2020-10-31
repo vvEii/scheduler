@@ -5,7 +5,7 @@ import Button from 'components/Button';
 const Form = (props) => {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [name, setName] = useState(props.name || '');
-
+  console.log(props.interviewer)
   const reset = () => {
     setName('');
     setInterviewer(null);
@@ -28,7 +28,7 @@ const Form = (props) => {
             className='appointment__create-input text--semi-bold'
             name='name'
             type='text'
-            placeholder='Enter your name'
+            placeholder= 'Enter your name'
             value={name}
             onChange={(event) => setName(event.target.value)}
           />
