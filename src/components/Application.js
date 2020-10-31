@@ -11,7 +11,7 @@ import {
 } from '../helpers/selectors';
 
 export default function Application(props) {
-  const GET_DAYS = 'http://localhost:8001/api/days';
+  const GET_DAYS = 'http://localhost:8000/api/days';
   const GET_APPOINTMENTS = 'http://localhost:8001/api/appointments';
   const GET_INTERVIEWERS = ' http://localhost:8001/api/interviewers';
 
@@ -63,7 +63,22 @@ export default function Application(props) {
     };
     return axios
       .put(`/api/appointments/${id}`, appointment)
-      .then((res) => setState({ ...state, appointments }))
+      .then(() => setState({ ...state, appointments }))
+      .catch((err) => console.log(err));
+  };
+
+  const cancelInterview = (id) => {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    return axios
+      .delete(`/api/appointments/${id}`)
+      .then(() => setState(...state, appointments))
       .catch((err) => console.log(err));
   };
 
@@ -96,6 +111,7 @@ export default function Application(props) {
               interview={interview}
               interviewers={dailyInterviewers}
               bookInterview={bookInterview}
+              cancelInterview={cancelInterview}
             />
           );
         })}
