@@ -48,10 +48,23 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-    console.log(appointments);
+
+    const days = [];
+
+    state.days.map((day) => {
+      if (day.name === state.day) {
+        let currentDay;
+        const spots = day.spots + 1;
+        currentDay = { ...day, spots };
+        days.push(currentDay);
+      } else {
+        days.push(day);
+      }
+    });
+
     return axios
       .delete(`/api/appointments/${id}`)
-      .then(() => setState(...state, appointments));
+      .then(() => setState(...state, days, appointments));
   };
 
   const bookInterview = (id, interview) => {
@@ -63,9 +76,23 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
+
+    const days = [];
+
+    state.days.map((day) => {
+      if (day.name === state.day) {
+        let currentDay;
+        const spots = day.spots - 1;
+        currentDay = { ...day, spots };
+        days.push(currentDay);
+      } else {
+        days.push(day);
+      }
+    });
+
     return axios
       .put(`/api/appointments/${id}`, appointment)
-      .then(() => setState({ ...state, appointments }));
+      .then(() => setState({ ...state, days, appointments }));
     // ------------ ASK mentor what happend, if added a catch here?--------
   };
   return {
