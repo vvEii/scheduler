@@ -47,12 +47,14 @@ const Appointment = (props) => {
   };
 
   const onDelete = () => {
-    transition(DELETING,true);
+    transition(DELETING, true);
     props
       .cancelInterview(props.id)
       .then(() => transition(EMPTY))
       .catch((err) => {
-        transition(ERROR_DELETE,true);
+        // ----------------why got a error?? state is not iterable
+        console.log(err);
+        transition(ERROR_DELETE, true);
       });
   };
 

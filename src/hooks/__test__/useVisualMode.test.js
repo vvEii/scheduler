@@ -1,6 +1,9 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import useVisualMode from 'hooks/useVisualMode';
+// -----------------the ../ meaning: hooks; but how come the hooks works too? can i select selectors.js by
+// doing helpers/selectors.js?? YES
+//import useVisualMode from '../hooks/useVisualMode';
 
 const FIRST = 'FIRST';
 const SECOND = 'SECOND';
