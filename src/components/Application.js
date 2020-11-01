@@ -63,8 +63,10 @@ export default function Application(props) {
     };
     return axios
       .put(`/api/appointments/${id}`, appointment)
-      .then(() => setState({ ...state, appointments }))
-      .catch((err) => console.log(err));
+      .then(() => {
+        return setState({ ...state, appointments });
+        // ------------ ASK mentor what happend, if added a catch here?--------
+      });
   };
 
   const cancelInterview = (id) => {
@@ -78,8 +80,7 @@ export default function Application(props) {
     };
     return axios
       .delete(`/api/appointments/${id}`)
-      .then(() => setState(...state, appointments))
-      .catch((err) => console.log(err));
+      .then(() => setState(...state, appointments));
   };
 
   return (
