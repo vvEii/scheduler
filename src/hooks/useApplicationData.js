@@ -50,7 +50,7 @@ export default function useApplicationData() {
     };
 
     const days = [];
-    console.log(state);
+
     state.days.map((day) => {
       if (day.name === state.day) {
         let currentDay;
