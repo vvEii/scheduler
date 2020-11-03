@@ -23,7 +23,31 @@ const reducer = (state, action) => {
         interviewers: action.interviewers,
       };
     case SET_INTERVIEW: {
-      return {};
+      const appointments = {
+        ...state.appointments,
+        [action.id]: {
+          ...state.appointments[action.id],
+          interview: action.interview,
+        },
+      };
+      const days = [];
+      // update remaining spots
+      state.days.map((day) => {
+        if (day.name === state.day) {
+          let currentDay;
+          const spots = action.interview ? day.spots - 1 : day.spots + 1;
+          currentDay = { ...day, spots };
+          days.push(currentDay);
+        } else {
+          days.push(day);
+        }
+      });
+
+      return {
+        ...state,
+        days,
+        appointments,
+      };
     }
     default:
       throw new Error(
@@ -79,34 +103,8 @@ export default function useApplicationData() {
       day,
     });
   };
-  // const setDays = (days) => {
-  //   //setState({ ...state, days });
-  //   setState((prev) => ({ ...prev, days }));
-  // };
 
   const cancelInterview = (id) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null,
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    const days = [];
-
-    state.days.map((day) => {
-      if (day.name === state.day) {
-        let currentDay;
-        const spots = day.spots + 1;
-        currentDay = { ...day, spots };
-        days.push(currentDay);
-      } else {
-        days.push(day);
-      }
-    });
-
     return (
       axios
         .delete(`/api/appointments/${id}`)
@@ -118,27 +116,11 @@ export default function useApplicationData() {
   };
 
   const bookInterview = (id, interview) => {
+    // in order to pass the new appointment in api parameters
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview },
     };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
-
-    const days = [];
-
-    state.days.map((day) => {
-      if (day.name === state.day) {
-        let currentDay;
-        const spots = day.spots - 1;
-        currentDay = { ...day, spots };
-        days.push(currentDay);
-      } else {
-        days.push(day);
-      }
-    });
 
     return (
       axios
