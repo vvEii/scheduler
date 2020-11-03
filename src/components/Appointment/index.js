@@ -24,10 +24,11 @@ const Appointment = (props) => {
     props.interview ? SHOW : EMPTY
   );
 
+  // event listener for cancel button
   const onCancel = () => {
     back();
   };
-
+  // event listener for save button
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -41,11 +42,12 @@ const Appointment = (props) => {
         transition(ERROR_SAVE, true);
       });
   };
-
+  // transition to CONFIRM mode
   const onConfirm = () => {
     transition(CONFIRM);
   };
 
+  // event listener for delete button
   const onDelete = () => {
     transition(DELETING, true);
     props
@@ -56,7 +58,8 @@ const Appointment = (props) => {
         transition(ERROR_DELETE, true);
       });
   };
-
+  
+  // transition to EDIT mode
   const onEdit = () => {
     transition(EDIT);
   };
