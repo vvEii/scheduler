@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  render,
-  cleanup,
-  getByTestId,
-  getByText,
-} from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import Form from 'components/Appointment/Form';
 import { fireEvent } from '@testing-library/react';
 
@@ -69,29 +64,29 @@ describe('Form', () => {
     expect(onSave).toHaveBeenCalledWith('Lydia Miller-Jones', null);
   });
 
-  it("calls onCancel and resets the input field", () => {
+  it('calls onCancel and resets the input field', () => {
     const onCancel = jest.fn();
     const { getByText, getByPlaceholderText, queryByText } = render(
       <Form
         interviewers={interviewers}
-        name="Lydia Mill-Jones"
+        name='Lydia Mill-Jones'
         onSave={jest.fn()}
         onCancel={onCancel}
       />
     );
-  
-    fireEvent.click(getByText("Save"));
-  
-    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
-      target: { value: "Lydia Miller-Jones" }
+
+    fireEvent.click(getByText('Save'));
+
+    fireEvent.change(getByPlaceholderText('Enter Student Name'), {
+      target: { value: 'Lydia Miller-Jones' },
     });
-  
-    fireEvent.click(getByText("Cancel"));
-  
+
+    fireEvent.click(getByText('Cancel'));
+
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
-  
-    expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
-  
+
+    expect(getByPlaceholderText('Enter Student Name')).toHaveValue('');
+
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });
