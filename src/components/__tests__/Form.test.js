@@ -50,7 +50,7 @@ describe('Form', () => {
     /* 1. Create the mock onSave function */
     const onSave = jest.fn();
     /* 2. Render the Form with interviewers, name and the onSave mock function passed as an onSave prop */
-    const { queryByText,getByText } = render(
+    const { queryByText, getByText } = render(
       <Form
         interviewers={interviewers}
         onSave={onSave}
