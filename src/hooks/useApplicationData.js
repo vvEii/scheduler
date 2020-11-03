@@ -64,7 +64,9 @@ export default function useApplicationData() {
 
     return axios
       .delete(`/api/appointments/${id}`)
-      .then(() => setState(...state, days, appointments));
+      // be careful with setState(), it only accepts a single parameter; 
+      // if setState(...state,days,appointments) would throw a error
+      .then(() => setState({...state, days, appointments}));
   };
 
   const bookInterview = (id, interview) => {
