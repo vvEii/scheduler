@@ -1,5 +1,3 @@
-import { render } from 'react-dom';
-
 const fixtures = {
   days: [
     {
@@ -61,6 +59,7 @@ export default {
     const DAY_API = '/api/days';
     const APPOINTMENTS_API = '/api/appointments';
     const INTERVIEWERS_API = '/api/interviewers';
+
     switch (url) {
       case DAY_API:
         return Promise.resolve({

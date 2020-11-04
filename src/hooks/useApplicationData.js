@@ -1,10 +1,9 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
-//import { REACT_APP_WEBSOCKET_URL } from '../.env.development';
 
-const GET_DAYS = 'http://localhost:8001/api/days';
-const GET_APPOINTMENTS = 'http://localhost:8001/api/appointments';
-const GET_INTERVIEWERS = ' http://localhost:8001/api/interviewers';
+const GET_DAYS = '/api/days';
+const GET_APPOINTMENTS = '/api/appointments';
+const GET_INTERVIEWERS = '/api/interviewers';
 const SET_DAY = 'SET_DAY';
 const SET_APPLICATION_DATA = 'SET_APPLICATION_DATA';
 const SET_INTERVIEW = 'SET_INTERVIEW';
