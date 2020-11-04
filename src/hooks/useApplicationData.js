@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
+//import { REACT_APP_WEBSOCKET_URL } from '../.env.development';
 
 const GET_DAYS = 'http://localhost:8001/api/days';
 const GET_APPOINTMENTS = 'http://localhost:8001/api/appointments';
@@ -71,6 +72,21 @@ export default function useApplicationData() {
     appointments: {},
     interviewers: {},
   });
+
+  // establish websocket connection
+  useEffect(() => {
+    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+    socket.onopen = () => socket.send('ping');
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type) {
+        dispatch(data);
+      }
+    };
+    return () => {
+      socket.close();
+    };
+  }, []);
 
   useEffect(() => {
     Promise.all([

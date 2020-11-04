@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'components/Appointment/style.scss';
 import Header from './Header.js';
 import Empty from './Empty.js';
@@ -24,6 +24,14 @@ const Appointment = (props) => {
     props.interview ? SHOW : EMPTY
   );
 
+  useEffect(() => {
+    if (mode === EMPTY && props.interview) {
+      transition(SHOW);
+    } else if (mode === SHOW && !props.interview) {
+      transition(EMPTY);
+    }
+  }, [props.interview, transition, mode]);
+
   // event listener for cancel button
   const onCancel = () => {
     back();
@@ -42,10 +50,6 @@ const Appointment = (props) => {
         transition(ERROR_SAVE, true);
       });
   };
-  // transition to CONFIRM mode
-  const onConfirm = () => {
-    transition(CONFIRM);
-  };
 
   // event listener for delete button
   const onDelete = () => {
@@ -58,22 +62,17 @@ const Appointment = (props) => {
         transition(ERROR_DELETE, true);
       });
   };
-  
-  // transition to EDIT mode
-  const onEdit = () => {
-    transition(EDIT);
-  };
 
   return (
-    <article className='appointment'>
+    <article className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           name={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={onConfirm}
-          onEdit={onEdit}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
@@ -103,10 +102,10 @@ const Appointment = (props) => {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error message='Could not save appointment.' onClose={onCancel} />
+        <Error message="Could not save appointment." onClose={onCancel} />
       )}
       {mode === ERROR_DELETE && (
-        <Error message='Could not cancel appointment.' onClose={onCancel} />
+        <Error message="Could not cancel appointment." onClose={onCancel} />
       )}
     </article>
   );
