@@ -35,10 +35,14 @@ const reducer = (state, action) => {
       // update remaining spots
       state.days.map((day) => {
         if (day.name === state.day) {
-          let currentDay;
-          const spots = action.interview ? day.spots - 1 : day.spots + 1;
-          currentDay = { ...day, spots };
-          days.push(currentDay);
+          if (action.updateSpots) {
+            let currentDay;
+            const spots = action.interview ? day.spots - 1 : day.spots + 1;
+            currentDay = { ...day, spots };
+            days.push(currentDay);
+          } else {
+            days.push(day);
+          }
         } else {
           days.push(day);
         }
@@ -80,7 +84,10 @@ export default function useApplicationData() {
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       if (data.type) {
-        dispatch(data);
+        // updateSpots indicates that if the reducer needs change the remaining spots of state
+        // it is needed to only change remainning spots once per operation
+        const action = { ...data, updateSpots: true };
+        dispatch(action);
       }
     };
     return () => {
@@ -127,7 +134,14 @@ export default function useApplicationData() {
         // be careful with setState(), it only accepts a single parameter;
         // if setState(...state,days,appointments) would throw a error
         // .then(() => setState({ ...state, days, appointments }))
-        .then(() => dispatch({ type: SET_INTERVIEW, id, interview: null }))
+        .then(() =>
+          dispatch({
+            type: SET_INTERVIEW,
+            id,
+            interview: null,
+            updateSpots: false,
+          })
+        )
     );
   };
 
@@ -142,7 +156,9 @@ export default function useApplicationData() {
       axios
         .put(`/api/appointments/${id}`, appointment)
         // .then(() => setState({ ...state, days, appointments }));
-        .then(dispatch({ type: SET_INTERVIEW, id, interview }))
+        .then(() => {
+          dispatch({ type: SET_INTERVIEW, id, interview, updateSpots: false });
+        })
     );
   };
   return {
