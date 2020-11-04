@@ -7,6 +7,7 @@ import {
   fireEvent,
   getByText,
   prettyDOM,
+  queryByText,
   getAllByTestId,
   getByAltText,
   getByPlaceholderText,
@@ -43,6 +44,17 @@ describe('Application', () => {
     // click save button on that same appointment
     fireEvent.click(getByText(appointment, 'Save'));
 
-    console.log(prettyDOM(appointment));
+    // confirm the saving status is displayed
+    expect(getByText(appointment, 'Saving')).toBeInTheDocument();
+    // confirm the student name is displayed after the saving indicator is hidden
+    await waitForElement(() => queryByText(appointment, 'Lydia Miller-Jones'));
+    //debug();
+    // find the specfic node that contains text "Monday"
+    const day = getAllByTestId(container, 'day').find((day) =>
+      queryByText(day, 'Monday')
+    );
+    // it should be "1 spot remaining" instead of "no spots remainning" because it's using WebSocket 
+    // to update the remaining spots
+    expect(getByText(day, '1 spot remaining')).toBeInTheDocument();
   });
 });
