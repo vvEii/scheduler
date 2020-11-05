@@ -21,3 +21,13 @@ npm test
 ```sh
 npm run storybook
 ```
+## Running Cypress Test Framework
+
+```sh
+npm run cypress
+```
+## Stretch
+
+- State management is using the useReducer hook.
+- Implement WebSocket to update latest application states among all users
+- Deploy on Heroku
