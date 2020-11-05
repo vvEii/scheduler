@@ -23,7 +23,7 @@ const Appointment = (props) => {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+  // determine the current mode based on the props.interview
   useEffect(() => {
     if (mode === EMPTY && props.interview) {
       transition(SHOW);

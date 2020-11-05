@@ -1,3 +1,4 @@
+// return all appointments for the day that passed in
 export function getAppointmentsForDay(state, day) {
   if (!state.days || state.days.length === 0) {
     return [];
@@ -8,7 +9,7 @@ export function getAppointmentsForDay(state, day) {
   if (!matchedDay) return [];
 
   const appointments = [];
-  
+
   matchedDay.appointments.map((id) => {
     if (state.appointments[id]) {
       appointments.push(state.appointments[id]);
@@ -18,6 +19,7 @@ export function getAppointmentsForDay(state, day) {
   return appointments;
 }
 
+// return all interviewers for the day that passed in
 export function getInterviewersForDay(state, day) {
   if (!state.days || state.days.length === 0) {
     return [];
@@ -37,11 +39,9 @@ export function getInterviewersForDay(state, day) {
   return interviewers;
 }
 
+// get the interview details info for the interviewer's id that passed in
 export function getInterview(state, interview) {
-  if (interview) {
-    const interviewer = state.interviewers[interview.interviewer];
-    const result = { ...interview, interviewer };
-    return result;
-  }
-  return null;
+  return interview
+    ? { ...interview, interviewer: state.interviewers[interview.interviewer] }
+    : null;
 }
