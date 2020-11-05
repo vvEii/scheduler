@@ -101,11 +101,12 @@ export default function useApplicationData() {
       axios.get(GET_INTERVIEWERS),
     ])
       .then((all) => {
+        const [days, appointments, interviewers] = all;
         dispatch({
           type: SET_APPLICATION_DATA,
-          days: all[0].data,
-          appointments: all[1].data,
-          interviewers: all[2].data,
+          days: days.data,
+          appointments: appointments.data,
+          interviewers: interviewers.data,
         });
         // useState:
         // setState((prev) => ({
