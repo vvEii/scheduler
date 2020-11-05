@@ -21,13 +21,21 @@ npm test
 ```sh
 npm run storybook
 ```
+
 ## Running Cypress Test Framework
 
 ```sh
 npm run cypress
 ```
+
 ## Stretch
 
 - State management is using the useReducer hook.
 - Implement WebSocket to update latest application states among all users
-- Deploy on Heroku
+- Deploy server on Heroku
+
+## Screenshots
+
+!["Appointment when edit and delete"](https://github.com/vvEii/scheduler/blob/master/docs/appointment-edit.png?raw=true)
+
+!["Appointment in responsive layout"](https://github.com/vvEii/scheduler/blob/master/docs/appointment-responsive-layput.png?raw=true)
