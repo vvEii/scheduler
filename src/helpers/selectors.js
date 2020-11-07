@@ -15,7 +15,6 @@ export function getAppointmentsForDay(state, day) {
       appointments.push(state.appointments[id]);
     }
   });
-
   return appointments;
 }
 
@@ -44,4 +43,14 @@ export function getInterview(state, interview) {
   return interview
     ? { ...interview, interviewer: state.interviewers[interview.interviewer] }
     : null;
+}
+
+export function getSpotsPerDay(state, day) {
+  const appointments = getAppointmentsForDay(state, day.name);
+  const bookAppointments = appointments.filter(
+    (appointment) => appointment.interview !== null
+  );
+  const openSpots = appointments.length - bookAppointments.length;
+
+  return openSpots;
 }

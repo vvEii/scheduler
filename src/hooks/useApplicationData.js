@@ -79,6 +79,7 @@ export default function useApplicationData() {
   // establish websocket connection
   useEffect(() => {
     const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
+
     socket.onopen = () => socket.send('ping');
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -145,7 +146,7 @@ export default function useApplicationData() {
     );
   };
 
-  const bookInterview = (id, interview) => {
+  const bookInterview = (id, interview, isEdit) => {
     // in order to pass the new appointment in api parameters
     const appointment = {
       ...state.appointments[id],
@@ -157,7 +158,13 @@ export default function useApplicationData() {
         .put(`/api/appointments/${id}`, appointment)
         // .then(() => setState({ ...state, days, appointments }));
         .then(() => {
-          dispatch({ type: SET_INTERVIEW, id, interview, updateSpots: false });
+          dispatch({
+            type: SET_INTERVIEW,
+            id,
+            interview,
+            updateSpots: false,
+            isEdit,
+          });
         })
     );
   };

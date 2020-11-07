@@ -38,13 +38,14 @@ const Appointment = (props) => {
   };
   // event listener for save button
   const save = (name, interviewer) => {
+    const isEdit = mode === EDIT;
     const interview = {
       student: name,
       interviewer,
     };
     transition(SAVING);
     props
-      .bookInterview(props.id, interview)
+      .bookInterview(props.id, interview,isEdit)
       .then(() => transition(SHOW))
       .catch(() => {
         transition(ERROR_SAVE, true);
