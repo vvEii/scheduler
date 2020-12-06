@@ -1,5 +1,9 @@
 # Interview Scheduler
 
+## Description
+
+An appointment schedule application allows student to book, edit, cancel appointments with different interviewers. This repo only contains the client codebase using React.js and scss. Also, applied storybook testing, Jest testing, and end-to-end testing Cypress.
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -27,12 +31,6 @@ npm run storybook
 ```sh
 npm run cypress
 ```
-
-## Stretch
-
-- State management is using the useReducer hook.
-- Implement WebSocket to update latest application states among all users
-- Deploy server on Heroku
 
 ## Screenshots
 
